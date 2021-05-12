@@ -43,7 +43,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "mcr.microsoft.com/media-azure-video-analyzer:1",
+              "image": "mcr.microsoft.com/media/video-analyzer:1",
               "createOptions": "{ \"HostConfig\": { \"LogConfig\": { \"Type\": \"\", \"Config\": { \"max-size\": \"10m\", \"max-file\": \"10\" } }, \"Binds\": [ \"$VIDEO_OUTPUT_FOLDER_ON_DEVICE:/var/media/\", \"$APPDATA_FOLDER_ON_DEVICE:/var/lib/videoanalyzer\" ], \"IpcMode\": \"host\", \"ShmSize\": 1536870912 } }"
             },
             "env": {
