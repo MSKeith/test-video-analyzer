@@ -8,13 +8,6 @@
                 "description": "The remote location for resolving supporting files."
             }
         },
-        "_artifactsLocationSasToken": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "The SAS token used for resolving supporting files when stored in a blob."
-            }
-        },
         "useBastion": {
             "type": "bool",
             "defaultValue": false,
