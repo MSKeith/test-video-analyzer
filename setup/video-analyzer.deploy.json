@@ -12,15 +12,6 @@
             "minLength": 3,
             "maxLength": 13
         },
-        "location": {
-            "metadata": {
-                "description": "By default, the resources will be created in the same location as the resource group.",
-                "todo": "Update the list of available regions."
-            },
-            "defaultValue": "westcentralus",
-            "type": "string",
-            "allowedValues": [ "westcentralus" ]
-        },
         "edgeModuleName": {
             "metadata": {
                 "description": "The edge module identity used to provision an authentication token for the edge device."
@@ -127,7 +118,7 @@
             "comments": "The Azure Video Analyzer account",
             "apiVersion": "2021-05-01-preview",
             "name": "[variables('accountName')]",
-            "location": "[parameters('location')]",
+            "location": "[resourceGroup().location]",
             "dependsOn": [
                 "deploy-storage-and-identity"
             ],
