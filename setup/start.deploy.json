@@ -93,7 +93,7 @@
         }
     },
     "variables": {
-        "_artifactsLocation": "https://github.com/Azure/video-analyzer/setup/raw/",
+        "_artifactsLocation": "https://raw.githubusercontent.com/MSKeith/test-video-analyzer/main/setup/",
         "managedIdentityName": "[concat(parameters('namePrefix'),'-deployment-identity-',uniqueString(parameters('resourceGroup')))]",
         "managedIdentityId": "[concat(subscription().id,'/resourceGroups/',parameters('resourceGroup'),'/providers/Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentityName'))]",
         "simulatedDeviceName": "[concat(parameters('namePrefix'),'-iot-edge-device')]",
@@ -481,7 +481,7 @@
                         },
                         "vmSize": {
                             "type": "string",
-                            "defaultValue": "Standard_DS3_v2",
+                            "defaultValue": "Standard_D4ds_v4",
                             "metadata": {
                                 "description": "The size of the VM"
                             }
