@@ -16,13 +16,13 @@ The scripts in this folder are used to deploy the Azure Video Analyzer.  This de
 
 > NOTE: Things like VM availability in the selected region will cause the deployment to fail.
 
-### Deploy the required Video Analyzer resources with the custom form
+### Deploy the required Video Analyzer resources
 
 [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMSKeith%2Ftest-video-analyzer%2Fmain%2Fsetup%2Fstart.deploy.json/createUIDefinitionUri/https%3A%2F%2Fraw.githubusercontent.com%2FMSKeith%2Ftest-video-analyzer%2Fmain%2Fsetup%2Fform.json)
 
-### Deploy the required Video Analyzer resources without the custom form
+<!--### Deploy the required Video Analyzer resources without the custom form
 
-[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2FAzure%2Fvideo-analyzer%2Fsetup%2Fraw%2Fstart.deploy.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fgithub.com%2FAzure%2Fvideo-analyzer%2Fsetup%2Fraw%2Fstart.deploy.json)-->
 
 
 

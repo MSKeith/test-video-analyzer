@@ -27,40 +27,40 @@ az config set extension.use_dynamic_install=yes_without_prompt
 
 # download the deployment manifest file
 printf "downloading $DEPLOYMENT_MANIFEST_TEMPLATE_URL\n"
-curl -s $DEPLOYMENT_MANIFEST_TEMPLATE_URL > deploy.modules.json
+curl -s $DEPLOYMENT_MANIFEST_TEMPLATE_URL > deployment.json
 
 # update the values in the manifest
 printf "replacing value in manifest\n"
-sed -i "s@\$AVA_PROVISIONING_TOKEN@${PROVISIONING_TOKEN}@g" deploy.modules.json
-sed -i "s@\$VIDEO_OUTPUT_FOLDER_ON_DEVICE@${VIDEO_OUTPUT_FOLDER_ON_DEVICE}@g" deploy.modules.json
-sed -i "s@\$VIDEO_INPUT_FOLDER_ON_DEVICE@${VIDEO_INPUT_FOLDER_ON_DEVICE}@g" deploy.modules.json
-sed -i "s@\$APPDATA_FOLDER_ON_DEVICE@${APPDATA_FOLDER_ON_DEVICE}@g" deploy.modules.json
+sed -i "s@\$AVA_PROVISIONING_TOKEN@${PROVISIONING_TOKEN}@g" deployment.json
+sed -i "s@\$VIDEO_OUTPUT_FOLDER_ON_DEVICE@${VIDEO_OUTPUT_FOLDER_ON_DEVICE}@g" deployment.json
+sed -i "s@\$VIDEO_INPUT_FOLDER_ON_DEVICE@${VIDEO_INPUT_FOLDER_ON_DEVICE}@g" deployment.json
+sed -i "s@\$APPDATA_FOLDER_ON_DEVICE@${APPDATA_FOLDER_ON_DEVICE}@g" deployment.json
 
-# Add a file to build ENV file from
->Env.txt
-echo "SUBSCRIPTION_ID=$SUBSCRIPTION_ID" >> Env.txt
-echo "RESOUCE_GROUP=$RESOURCE_GROUP" >> Env.txt
-echo "AVA_PROVISIONING_TOKEN=$PROVISIONING_TOKEN">> Env.txt
-echo "VIDEO_INPUT_FOLDER_ON_DEVICE=$VIDEO_INPUT_FOLDER_ON_DEVICE">> Env.txt
-echo "VIDEO_OUTPUT_FOLDER_ON_DEVICE=$VIDEO_OUTPUT_FOLDER_ON_DEVICE" >> Env.txt
-echo "APPDATA_FOLDER_ON_DEVICE=$APPDATA_FOLDER_ON_DEVICE" >> Env.txt
-echo "CONTAINER_REGISTRY_PASSWORD_myacr=$REGISTRY_PASSWORD" >> Env.txt
-echo "CONTAINER_REGISTRY_USERNAME_myacr=$REGISTRY_USER_NAME" >> Env.txt
->app-settings.json
-echo "{" >> app-settings.json
-echo "\"IoThubConnectionString\": \"$IOT_HUB_CONNECTION_STRING\"," >> app-settings.json
-echo "\"deviceId\": \"$DEVICE_ID\"," >> app-settings.json
-echo "\"moduleId\": \"$IOT_EDGE_MODULE_NAME\"" >> app-settings.json
-echo "}" >> app-settings.json
+# Add a file to build .env file from
+>.env
+echo "SUBSCRIPTION_ID=$SUBSCRIPTION_ID" >> .env
+echo "RESOUCE_GROUP=$RESOURCE_GROUP" >> .env
+echo "AVA_PROVISIONING_TOKEN=$PROVISIONING_TOKEN">> .env
+echo "VIDEO_INPUT_FOLDER_ON_DEVICE=$VIDEO_INPUT_FOLDER_ON_DEVICE">> .env
+echo "VIDEO_OUTPUT_FOLDER_ON_DEVICE=$VIDEO_OUTPUT_FOLDER_ON_DEVICE" >> .env
+echo "APPDATA_FOLDER_ON_DEVICE=$APPDATA_FOLDER_ON_DEVICE" >> .env
+echo "CONTAINER_REGISTRY_PASSWORD_myacr=$REGISTRY_PASSWORD" >> .env
+echo "CONTAINER_REGISTRY_USERNAME_myacr=$REGISTRY_USER_NAME" >> .env
+>appsettings.json
+echo "{" >> appsettings.json
+echo "\"IoThubConnectionString\": \"$IOT_HUB_CONNECTION_STRING\"," >> appsettings.json
+echo "\"deviceId\": \"$DEVICE_ID\"," >> appsettings.json
+echo "\"moduleId\": \"$IOT_EDGE_MODULE_NAME\"" >> appsettings.json
+echo "}" >> appsettings.json
 
 
 # deploy the manifest to the iot hub
 printf "deploying manifest to $DEVICE_ID on $HUB_NAME\n"
-az iot edge set-modules --device-id $DEVICE_ID --hub-name $HUB_NAME --content deploy.modules.json --only-show-error -o table
+az iot edge set-modules --device-id $DEVICE_ID --hub-name $HUB_NAME --content deployment.json --only-show-error -o table
 
 # store the manifest for later reference
 printf "storing manifest for reference\n"
 az storage share create --name deployment-output --account-name $AZURE_STORAGE_ACCOUNT
-az storage file upload --share-name deployment-output --source deploy.modules.json --account-name $AZURE_STORAGE_ACCOUNT
-az storage file upload --share-name deployment-output --source Env.txt --account-name $AZURE_STORAGE_ACCOUNT
-az storage file upload --share-name deployment-output --source app-settings.json --account-name $AZURE_STORAGE_ACCOUNT
+az storage file upload --share-name deployment-output --source deployment.json --account-name $AZURE_STORAGE_ACCOUNT
+az storage file upload --share-name deployment-output --source .env --account-name $AZURE_STORAGE_ACCOUNT
+az storage file upload --share-name deployment-output --source appsettings.json --account-name $AZURE_STORAGE_ACCOUNT
