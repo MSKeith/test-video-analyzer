@@ -309,7 +309,8 @@
             "comments": "Deploys the supporting IoT resources. There is conditional logic in this template to handle existing resources.",
             "resourceGroup": "[parameters('resourceGroup')]",
             "dependsOn": [
-                "[parameters('resourceGroup')]"
+                "[parameters('resourceGroup')]",
+                "deploy-managed-identity"
             ],
             "properties": {
                 "templateLink": {
