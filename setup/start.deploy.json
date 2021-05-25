@@ -176,7 +176,8 @@
             "comments": "",
             "resourceGroup": "[parameters('resourceGroup')]",
             "dependsOn": [
-                "[parameters('resourceGroup')]"
+                "[parameters('resourceGroup')]",
+                "deploy-managed-identity"
             ],
             "properties": {
                 "mode": "Incremental",
