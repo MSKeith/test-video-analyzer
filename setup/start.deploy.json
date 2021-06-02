@@ -174,7 +174,7 @@
                     "dependsOn": ["deploy-managed-identity"],
                     "apiVersion": "2020-10-01",
                     "name": "wait-for-role-assignment",
-                    "location": "[resourceGroup().location]",
+                    "location": "[deployment().location]",
                     "kind": "AzurePowerShell",
                     "properties": {
                         "azPowerShellVersion": "5.0",
