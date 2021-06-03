@@ -93,7 +93,7 @@
         }
     },
     "variables": {
-        "_artifactsLocation": "https://raw.githubusercontent.com/MSKeith/test-video-analyzer/main/setup/",
+        "_artifactsLocation": "https://raw.githubusercontent.com/Azure/video-analyzer/main/setup/",
         "managedIdentityName": "[concat(parameters('namePrefix'),'-deployment-identity-',uniqueString(parameters('resourceGroup')))]",
         "managedIdentityId": "[concat(subscription().id,'/resourceGroups/',parameters('resourceGroup'),'/providers/Microsoft.ManagedIdentity/userAssignedIdentities/', variables('managedIdentityName'))]",
         "simulatedDeviceName": "[concat(parameters('namePrefix'),'-iot-edge-device')]",
@@ -169,27 +169,6 @@
                 }
             }
         },
-<<<<<<< HEAD
-            {           
-                    "type": "Microsoft.Resources/deploymentScripts",
-                    "dependsOn": ["deploy-managed-identity"],
-                    "apiVersion": "2020-10-01",
-                    "name": "wait-for-role-assignment",
-                    "location": "[deployment().location]",
-                    "kind": "AzurePowerShell",
-                    "properties": {
-                        "azPowerShellVersion": "5.0",
-                        "forceUpdateTag": "1.0",
-                        "scriptContent": "Start-Sleep -s 60",
-                        "timeout": "PT30M",
-                        "cleanupPreference": "Always",
-                        "retentionInterval": "PT1H"
-                    }
-        },
-
-
-=======
->>>>>>> parent of 3fb4e3c (Update start.deploy.json)
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-06-01",
@@ -197,8 +176,7 @@
             "comments": "",
             "resourceGroup": "[parameters('resourceGroup')]",
             "dependsOn": [
-                "[parameters('resourceGroup')]",
-                "deploy-managed-identity"
+                "[parameters('resourceGroup')]"
             ],
             "properties": {
                 "mode": "Incremental",
@@ -330,8 +308,7 @@
             "comments": "Deploys the supporting IoT resources. There is conditional logic in this template to handle existing resources.",
             "resourceGroup": "[parameters('resourceGroup')]",
             "dependsOn": [
-                "[parameters('resourceGroup')]",
-                "deploy-managed-identity"
+                "[parameters('resourceGroup')]"
             ],
             "properties": {
                 "templateLink": {
