@@ -169,6 +169,7 @@
                 }
             }
         },
+<<<<<<< HEAD
             {           
                     "type": "Microsoft.Resources/deploymentScripts",
                     "dependsOn": ["deploy-managed-identity"],
@@ -187,6 +188,8 @@
         },
 
 
+=======
+>>>>>>> parent of 3fb4e3c (Update start.deploy.json)
         {
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2020-06-01",
@@ -306,8 +309,7 @@
             "comments": "Deploys the core resources for Video Analyzer",
             "resourceGroup": "[parameters('resourceGroup')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/resourceGroups',parameters('resourceGroup'))]",
-                "wait-for-role-assignment"
+                "[resourceId('Microsoft.Resources/resourceGroups',parameters('resourceGroup'))]"
             ],
             "properties": {
                 "templateLink": {
