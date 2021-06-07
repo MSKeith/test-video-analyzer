@@ -107,7 +107,24 @@
                                 "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',variables('managedIdentityName')), '2018-11-30').principalId]",
                                 "principalType": "ServicePrincipal"
                             }
+                        },
+                        {
+                            "type": "Microsoft.Resources/deploymentScripts",
+                            "dependsOn": [ "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', variables('roleAssignmentName'))]" ],
+                            "apiVersion": "2020-10-01",
+                            "name": "managed-identity-role-assignmentComplete",
+                            "location": "[resourceGroup().location]",
+                            "kind": "AzurePowerShell",
+                            "properties": {
+                                "azPowerShellVersion": "5.0",
+                                "forceUpdateTag": "1.0",
+                                "scriptContent": "Start-Sleep -s 60",
+                                "timeout": "PT30M",
+                                "cleanupPreference": "Always",
+                                "retentionInterval": "PT1H"
+                            }
                         }
+
                     ],
                     "outputs": {}
                 }
@@ -120,7 +137,8 @@
             "name": "[variables('accountName')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
-                "deploy-storage-and-identity"
+                "deploy-storage-and-identity",
+                "managed-identity-role-assignmentComplete"
             ],
             "properties": {
                 "storageAccounts": [
