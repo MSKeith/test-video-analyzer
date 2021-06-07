@@ -35,11 +35,11 @@ sudo chown -R localedgeuser:localedgegroup /home/localedgeuser/
 # !NOTE! these folder locations are must match the folders used in `deploy-modules.sh` and ultimately the IoT edge deployment manifest
 
 # general app data for the module
-sudo mkdir -p /var/lib/videoanalyzer 
+sudo mkdir -p /var/lib/videoanalyzer/ 
 sudo chown -R localedgeuser:localedgegroup /var/lib/videoanalyzer/
 sudo mkdir -p /var/lib/videoanalyzer/tmp/ 
 sudo chown -R localedgeuser:localedgegroup /var/lib/videoanalyzer/tmp/
-sudo mkdir -p /var/lib/videoanalyzer/logs
+sudo mkdir -p /var/lib/videoanalyzer/logs/
 sudo chown -R localedgeuser:localedgegroup /var/lib/videoanalyzer/logs/
 
 # output folder for file sink
