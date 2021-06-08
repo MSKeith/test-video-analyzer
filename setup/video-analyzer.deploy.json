@@ -95,13 +95,12 @@
                             }
                         },
                         {
-                            "name": "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', variables('roleAssignmentName'))]",
+                            "name": "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', variables('readerAssignment'))]",
                             "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
                             "apiVersion": "2021-04-01-preview",
                             "dependsOn": [
-                                "variables('managedIdentityName')",
-                                "variables('storageAccountName')",
-                                "variables('roleDefinitionId')"
+                                "[variables('managedIdentityName')]",
+                                "[variables('storageAccountName')]"
                             ],
                             "properties": {
                                 "roleDefinitionId": "[variables('roleDefinitionId')]",
@@ -112,8 +111,8 @@
                         {
                             "type": "Microsoft.Resources/deploymentScripts",
                             "dependsOn": [
-                                "[variables('managedIdentityName')]",
-                                "[variables('storageAccountName')]"
+                                "variables('managedIdentityName')",
+                                "variables('storageAccountName')"
                             ],
                             "apiVersion": "2020-10-01",
                             "name": "managed-identity-role-assignmentComplete",
