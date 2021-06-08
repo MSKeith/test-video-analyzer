@@ -121,7 +121,6 @@
             "location": "[resourceGroup().location]",
             "dependsOn": [
                 "deploy-storage-and-identity",
-                "managed-identity-role-assignmentComplete"
             ],
             "properties": {
                 "storageAccounts": [
