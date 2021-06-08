@@ -71,8 +71,10 @@
                     "variables": {
                         "storageAccountName": "[concat(parameters('namePrefix'),uniqueString(resourceGroup().id))]",
                         "managedIdentityName": "[parameters('managedIdentityName')]",
-                        "roleAssignmentName": "[guid('Storage Blob Data Contributor',variables('managedIdentityName'))]",
-                        "roleDefinitionId": "[concat(resourceGroup().id, '/providers/Microsoft.Authorization/roleDefinitions/', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]"
+                        "storageBlobDataContributorAssignment": "[guid('Storage Blob Data Contributor',variables('managedIdentityName'))]",
+                        "storageBlobDataContributorDefinitionId": "[concat(resourceGroup().id, '/providers/Microsoft.Authorization/roleDefinitions/', 'ba92f5b4-2d11-453d-a403-e96b0029c9fe')]",
+                        "readerAssignment": "[guid('Reader',variables('managedIdentityName'))]",
+                        "readerDefinitionId": "[concat(resourceGroup().id, '/providers/Microsoft.Authorization/roleDefinitions/', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]"   
                     },
                     "resources": [
                         {
@@ -95,6 +97,24 @@
                             }
                         },
                         {
+<<<<<<< Updated upstream
+                            "name": "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', variables('readerAssignment'))]",
+=======
+                            "name": "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', variables('storageBlobDataContributorAssignment'))]",
+>>>>>>> Stashed changes
+                            "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
+                            "apiVersion": "2021-04-01-preview",
+                            "dependsOn": [
+                                "[variables('managedIdentityName')]",
+                                "[variables('storageAccountName')]"
+                            ],
+                            "properties": {
+                                "roleDefinitionId": "[variables('storageBlobDataContributorDefinitionId')]",
+                                "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',variables('managedIdentityName')), '2018-11-30').principalId]",
+                                "principalType": "ServicePrincipal"
+                            }
+                        },
+                        {
                             "name": "[concat(variables('storageAccountName'), '/Microsoft.Authorization/', variables('readerAssignment'))]",
                             "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
                             "apiVersion": "2021-04-01-preview",
@@ -103,7 +123,7 @@
                                 "[variables('storageAccountName')]"
                             ],
                             "properties": {
-                                "roleDefinitionId": "[variables('roleDefinitionId')]",
+                                "roleDefinitionId": "[variables('readerDefinitionId')]",
                                 "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities',variables('managedIdentityName')), '2018-11-30').principalId]",
                                 "principalType": "ServicePrincipal"
                             }
@@ -120,7 +140,11 @@
             "name": "[variables('accountName')]",
             "location": "[resourceGroup().location]",
             "dependsOn": [
+<<<<<<< Updated upstream
                 "deploy-storage-and-identity",
+=======
+                "deploy-storage-and-identity"
+>>>>>>> Stashed changes
             ],
             "properties": {
                 "storageAccounts": [
