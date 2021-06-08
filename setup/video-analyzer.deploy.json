@@ -99,9 +99,9 @@
                             "type": "Microsoft.Storage/storageAccounts/providers/roleAssignments",
                             "apiVersion": "2021-04-01-preview",
                             "dependsOn": [
-                                "[variables('managedIdentityName')]",
-                                "[variables('storageAccountName')]",
-                                "[variables('roleDefinitionId')]"
+                                "variables('managedIdentityName')",
+                                "variables('storageAccountName')",
+                                "variables('roleDefinitionId')"
                             ],
                             "properties": {
                                 "roleDefinitionId": "[variables('roleDefinitionId')]",
